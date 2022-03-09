@@ -45,7 +45,6 @@ const App = () => {
         setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
         setFilteredPlaces([]);
         setIsLoading(false);
-        console.log(data);
       });
     }
   }, [type, bounds]);
