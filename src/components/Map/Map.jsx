@@ -7,9 +7,17 @@ import DummyImage from "../../dummy.jpg";
 
 import useStyles from "./style";
 
-const Map = ({ setCoordinates, setBounds, coordinates, places, setChild }) => {
+const Map = ({
+  setCoordinates,
+  setBounds,
+  coordinates,
+  places,
+  setChild,
+  weatherData,
+}) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery("(min-width:600px)");
+  console.log({weatherData})
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
@@ -61,6 +69,14 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChild }) => {
             )}
           </div>
         ))}
+        {weatherData?.list?.length && weatherData.list.map((weather, index) => {
+          <div key={index} lat={weather.coord.lat} lng={weather.coord.lon}>
+            <img
+              src={`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`}
+              height="100px"
+            />
+          </div>;
+        })}
       </GoogleMapReact>
     </div>
   );
