@@ -4,6 +4,7 @@ import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import LocationOtlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import { Rating } from "@material-ui/lab";
 import DummyImage from "../../dummy.jpg";
+import mapStyles from './mapStyles'
 
 import useStyles from "./style";
 
@@ -17,7 +18,6 @@ const Map = ({
 }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery("(min-width:600px)");
-  console.log({weatherData})
   return (
     <div className={classes.mapContainer}>
       <GoogleMapReact
@@ -26,7 +26,7 @@ const Map = ({
         center={coordinates}
         defaultZoom={13}
         margin={[50, 50, 50, 50]}
-        options={""}
+        options={{disableDefaultUI:true, zoomControl:true}}
         onChange={(e) => {
           setCoordinates({
             lat: e.center.lat,
