@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
 import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import LocationOtlinedIcon from "@material-ui/icons/LocationOnOutlined";
@@ -7,7 +7,7 @@ import DummyImage from "../../dummy.jpg";
 
 import useStyles from "./style";
 
-const Map = ({ setCoordinates, setBounds, coordinates, places }) => {
+const Map = ({ setCoordinates, setBounds, coordinates, places, setChild }) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery("(min-width:600px)");
   return (
@@ -29,7 +29,9 @@ const Map = ({ setCoordinates, setBounds, coordinates, places }) => {
             sw: e.marginBounds.sw,
           });
         }}
-        // onChildClick={''}
+        onChildClick={(child) => {
+          setChild(child);
+        }}
       >
         {places?.map((place, index) => (
           <div
@@ -51,12 +53,10 @@ const Map = ({ setCoordinates, setBounds, coordinates, places }) => {
                 </Typography>
                 <img
                   className={classes.pointer}
-                  src={
-                    place.photo ? place.photo.images.large.url : DummyImage
-                  }
+                  src={place.photo ? place.photo.images.large.url : DummyImage}
                   title={place.name}
                 />
-                <Rating size="small" value={Number(place.rating)} readOnly/>
+                <Rating size="small" value={Number(place.rating)} readOnly />
               </Paper>
             )}
           </div>

@@ -15,7 +15,8 @@ import Rating from "@material-ui/lab/Rating";
 import useStyles from "./style";
 import DummyImage from "../../dummy.jpg";
 
-const PlaceDetails = ({ place }) => {
+const PlaceDetails = ({ place, selected, refProp }) => {
+  if (selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   const classes = useStyles();
   return (
     <>
@@ -36,7 +37,7 @@ const PlaceDetails = ({ place }) => {
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
-          <Rating value={Number(place.rating)} readOnly/>
+            <Rating value={Number(place.rating)} readOnly />
             <Typography gutterBottom variant="subtitle1">
               out of {place.num_reviews} reviews
             </Typography>
@@ -49,6 +50,7 @@ const PlaceDetails = ({ place }) => {
           </Box>
           {place?.awards?.map((award) => (
             <Box
+              key={award.display_name}
               my={1}
               display="flex"
               justifyContent="space-between"
